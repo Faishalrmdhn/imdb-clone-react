@@ -3,14 +3,33 @@ import NavBar from './components/NavBar';
 import Banner from './components/Banner';
 import Movies from './components/Movies';
 import Pagination from './components/Pagination';
+import Favourites from './components/Favourites';
+import PageNotFound from './components/PageNotFound';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 function App() {
   return (
     <>
-      <NavBar></NavBar>
-      <Banner></Banner>
-      <Movies></Movies>
-      <Pagination></Pagination>
-    
+      <BrowserRouter>
+        <NavBar></NavBar>
+        <Routes>
+          <Route path='/' element={
+            <>
+              <Banner></Banner>
+              <Movies></Movies>
+              <Pagination></Pagination>
+            </>
+          }></Route>
+          <Route path='favourite' element={
+            <>
+              <Favourites></Favourites>
+            </>
+          }></Route>
+
+          <Route path='*' element={
+            <PageNotFound></PageNotFound>
+          }></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

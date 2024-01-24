@@ -1,16 +1,15 @@
 import React from 'react'
-import imgBanner from '../assets/dummy-banner.jpg'
-import './Banner.css'
 function Banner() {
   return (
     <>
-        <img src={imgBanner} alt="" />
+      <div className='bg-banner h-[50vh] md:h-[60vh] bg-center bg-cover flex items-end'>
         <div className='
-        banner-head flex text-2xl items-center justify-center relative 
-        bg-[#16151598] text-[#c5910e] bottom-[5rem] h-[5rem]
+        text-3xl text-center w-full 
+        bg-[#16151598] text-[#c5910e] p-4
         '>
-            Banner Film
+          TOP GUN : Maverick
         </div>
+      </div>
     </>
   )
 }
