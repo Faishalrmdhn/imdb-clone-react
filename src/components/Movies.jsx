@@ -2,29 +2,17 @@ import React, { useEffect, useState } from 'react'
 import ApiService from '../api/index'
 
 function Movies() {
-  const [data, setData] = useState('')
-  // const getData =  async () =>{
-  //   const res = await axios.get('https://api.themoviedb.org/3/movie/550?api_key=281bab7b8ac534c9cfdf7189e6b01632')
-  //   return console.log(res.data)
-  // }
-  // axios.get('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=2&sort_by=popularity.desc')
-  // .then((res)=>{
-  //   console.table(res);
-  // })
+  const [movie, setMovie] = useState('')
+  const bgImageStyle = {
+     backgroundImage: movie !== '' ? `url(https://image.tmdb.org/t/p/original${movie.poster_path})` : 'loading'
+  }
   useEffect(()=>{
     const fetchData = async ()=>{
       try {
-        // const urlAPI = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=2&sort_by=popularity.desc'
-        // const apiKey = '281bab7b8ac534c9cfdf7189e6b01632'
-
-        // const res = await axios.get(urlAPI, {
-        //   params:{
-        //     'api_key': apiKey
-        //   }
-        // })
         const res = await ApiService.popularMovies()
-        console.log(res);
-        // return setData(res)
+        console.log(res.data.results[0]);
+        return setMovie(res.data.results[0])
+        // setBgImage({backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.poster_path})`})
       } catch (error) {
         console.log(error);
       }
@@ -36,19 +24,52 @@ function Movies() {
     <div className='mt-8'>
         <h3 className='font-bold text-2xl text-center'>Trending Movies</h3>
         <div className='flex flex-wrap justify-center'>
-            <div className='bg-[url(https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.png)]
+            <div className='
             w-[160px] m-4 rounded-xl 
             h-[30vh] 
-            md:w-[180px]
+            md:w-[200px]
             md:h-[40vh]
             hover:scale-110 
             duration-300 
-            bg-center bg-cover'>    
+            bg-center bg-cover'
+            style={bgImageStyle}
+            >    
                 <div className='w-full
                 text-center bg-[#16151598] 
                 text-[#c5910e] py-2'
-                >Movie 1</div>
-                {/* <div>{fetchData}</div> */}
+                >{movie.title}</div>
+            </div>
+
+            <div className='
+            w-[160px] m-4 rounded-xl 
+            h-[30vh] 
+            md:w-[200px]
+            md:h-[40vh]
+            hover:scale-110 
+            duration-300 
+            bg-center bg-cover'
+            style={bgImageStyle}
+            >    
+                <div className='w-full
+                text-center bg-[#16151598] 
+                text-[#c5910e] py-2'
+                >{movie.title}</div>
+            </div>
+
+            <div className='
+            w-[160px] m-4 rounded-xl 
+            h-[30vh] 
+            md:w-[200px]
+            md:h-[40vh]
+            hover:scale-110 
+            duration-300 
+            bg-center bg-cover'
+            style={bgImageStyle}
+            >    
+                <div className='w-full
+                text-center bg-[#16151598] 
+                text-[#c5910e] py-2'
+                >{movie.title}</div>
             </div>
         </div>
     </div>
