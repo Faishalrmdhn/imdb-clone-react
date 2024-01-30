@@ -6,7 +6,13 @@ import Pagination from './components/Pagination';
 import Favourites from './components/Favourites';
 import PageNotFound from './components/PageNotFound';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useState } from 'react';
 function App() {
+  const [banner, setBanner] = useState('')
+  const backdrop =(val)=>{
+    setBanner(val)
+  }
+  // console.log(banner);
   return (
     <>
       <BrowserRouter>
@@ -14,8 +20,8 @@ function App() {
         <Routes>
           <Route path='/' element={
             <>
-              <Banner></Banner>
-              <Movies></Movies>
+              <Banner banner={banner}></Banner>
+              <Movies backdrop={backdrop}></Movies>
               <Pagination></Pagination>
             </>
           }></Route>
