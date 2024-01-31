@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import ApiService from '../api/index'
 
 function Movies(props) {
   const [movie, setMovie] = useState('')
+  const isMovie = useMemo(()=>{
+    return movie.length !== 0
+  }, [movie])
 
   const bgImageStyle = (poster)=>{
     return {
-      backgroundImage: movie.length !== 0 ? `url(https://image.tmdb.org/t/p/original${poster})` : ''
+      backgroundImage: isMovie ? `url(https://image.tmdb.org/t/p/original${poster})` : ''
     }
   }
   
