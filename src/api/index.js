@@ -13,7 +13,6 @@ const ApiService = {
         }
     },
     nowPlaying(pageNumber = 1){
-        console.log(this.config.headers['Authorization']);
         return axios.get(`${this.baseURL}movie/now_playing?language=en-US&page=${pageNumber}`, {
             ...this.config
         })
