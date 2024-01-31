@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import ApiService from '../api/index'
+import { InfinitySpin } from 'react-loader-spinner' 
 
 function Movies(props) {
   const [movie, setMovie] = useState('')
-  const isMovie = useMemo(()=>{
+  const isMovieExist = useMemo(()=>{
     return movie.length !== 0
   }, [movie])
 
   const bgImageStyle = (poster)=>{
     return {
-      backgroundImage: isMovie ? `url(https://image.tmdb.org/t/p/original${poster})` : ''
+      backgroundImage: isMovieExist ? `url(https://image.tmdb.org/t/p/original${poster})` : ''
     }
   }
   
@@ -32,8 +33,7 @@ function Movies(props) {
         <h3 className='font-bold text-2xl text-center'>Now Playing</h3>
         <div className='flex flex-wrap justify-center align-items'>
             {
-              movie.length === 0 ? 
-                <h1>Loading...</h1> : 
+              isMovieExist ? 
                 movie.map((item, idx)=>{
                   return (
                     <div className='
@@ -47,6 +47,7 @@ function Movies(props) {
                     bg-center bg-cover
                     cursor-pointer'
                     style={bgImageStyle(item.poster_path)}
+                    key={idx}
                     >    
                         <div className='w-full
                         absolute
@@ -58,7 +59,13 @@ function Movies(props) {
                         </div>
                     </div>
                   )
-                })
+                }) : 
+                <InfinitySpin
+                visible={true}
+                width="200"
+                color="#c5910e"
+                ariaLabel="infinity-spin-loading"
+                />
             }
             
 
