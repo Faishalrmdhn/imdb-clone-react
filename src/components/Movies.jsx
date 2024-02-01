@@ -7,6 +7,8 @@ function Movies() {
   let [movieList, setMovieList] = useState('')
   let [pageNum, setPage] = useState(1) 
   let [totalPages, setTotalPages] = useState(null)
+  let [hovered, setHovered] = useState('')
+  let [favourite, setFav] = useState([])
   const isMovieExist = useMemo(()=>{
     return movieList.length !== 0
   }, [movieList])
@@ -23,6 +25,7 @@ function Movies() {
     }
     setPage(pageNum - 1)
   }
+  
   const onNext=()=>{
     if (pageNum === totalPages) {
       return setPage(1)
@@ -30,6 +33,21 @@ function Movies() {
         setPage(pageNum + 1)
   }
   
+  const showEmoticon=(id)=>{
+    setHovered(id)
+  }
+
+  const addFav =(id)=>{
+    const newFav = [...favourite, id]
+    return setFav(newFav)
+  }
+
+  const deleteFav = (id)=>{
+    const filteredFav = favourite.filter(val=>{
+      return val !== id
+    })
+    setFav(filteredFav)
+  }
   useEffect(()=>{
     const fetchData = async ()=>{
       try {
@@ -41,7 +59,22 @@ function Movies() {
       }
     }
 
+    // const addFavoriteMovie = async (id)=>{
+    //   let data = {
+    //     'media_type' : 'movie',
+    //     'media_id' : id,
+    //     'favorite' : true
+    //   }
+
+    //   try {
+    //     const res = await ApiService.addFavoriteMovies(data)
+    //     console.log(res);
+    //   } catch (error) {
+    //     throw new Error(error)
+    //   }
+    // }
     fetchData()
+    // addFavoriteMovie()
   },[pageNum])
   
   return (
@@ -50,9 +83,16 @@ function Movies() {
         <div className='flex flex-wrap justify-center align-items'>
             {
               isMovieExist ? 
-                movieList.map((item, idx)=>{
+                movieList.map((movie, idx)=>{
                   return (
-                    <div className='
+                    <div 
+                    onMouseOver={
+                      ()=>{showEmoticon(movie.id)}
+                    }
+                    onMouseOut={
+                      ()=>{showEmoticon('')}
+                    }
+                    className='
                     relative
                     w-[160px] m-4 rounded-xl 
                     h-[30vh] 
@@ -62,16 +102,42 @@ function Movies() {
                     duration-300 
                     bg-center bg-cover
                     cursor-pointer'
-                    style={bgImageStyle(item.poster_path)}
+                    style={bgImageStyle(movie.poster_path)}
                     key={idx}
                     >    
+                        <div className='
+                        absolute
+                        top-0
+                        right-0
+                        text-center bg-[#16151598] 
+                        text-[#c5910e] p-2
+                        rounded-bl-xl
+                        rounded-rt-xl'
+                        style={{
+                          display: hovered === movie.id? 'block' : 'none'
+                        }}
+                        >
+                            {favourite.includes(movie.id) === false ? (
+                              <div 
+                              onClick={()=>{addFav(movie.id)}}>
+                                👍
+                              </div>
+                            ) : (
+                              <div
+                              onClick={()=>{deleteFav(movie.id)}}>
+                                👎
+                              </div>
+                            )}
+                          
+                        </div>
+
                         <div className='w-full
                         absolute
                         bottom-0
                         text-center bg-[#16151598] 
                         text-[#c5910e] py-2'
                         >
-                          {item.title}
+                          {movie.title}
                         </div>
                     </div>
                   )

@@ -28,7 +28,13 @@ const ApiService = {
         return axios.get(`${this.baseURL}account/20942960/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, {
             ...this.config
         })
-    }
+    },
+    addFavoriteMovies(data){
+        console.log(data);
+        return axios.get(`${this.baseURL}account/20942960/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, {
+            ...this.config
+        }, data)
+    },
 }
 
 export default ApiService
