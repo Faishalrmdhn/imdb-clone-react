@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 function Pagination(props) {
   let {pageNum, onNext, onPrev} = props
 
