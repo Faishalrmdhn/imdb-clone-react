@@ -49,7 +49,6 @@ function Movies() {
     setFav(filteredFav)
   }
 
-  // const addFavorite
   useEffect(()=>{
     const fetchData = async ()=>{
       try {
