@@ -48,14 +48,16 @@ function Movies() {
     })
     setFav(filteredFav)
   }
+
+  // const addFavorite
   useEffect(()=>{
     const fetchData = async ()=>{
       try {
         const res = await ApiService.nowPlaying(pageNum)
         setMovieList(res.data.results)
         setTotalPages(res.data.total_pages)
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        throw new Error(err)
       }
     }
 
