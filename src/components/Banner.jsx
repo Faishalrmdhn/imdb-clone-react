@@ -23,7 +23,7 @@ function Banner(props) {
   },[])
   return (
     <>
-      <div className='h-[60vh] md:h-[70vh] sm:bg-end sm:bg-cover flex items-end'
+      <div className='h-[60vh] md:h-[75vh] bg-center bg-cover flex items-end'
       style={banner}
       >
         {banner === '' ? (
